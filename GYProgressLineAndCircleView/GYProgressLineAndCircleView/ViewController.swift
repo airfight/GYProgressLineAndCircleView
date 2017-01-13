@@ -12,7 +12,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let fps = YYFPSLabel(frame:  CGRect(x: self.view.frame.maxX - 60, y: self.view.frame.maxY - 30, width: 60, height: 30))
+        
+        self.navigationController?.view.addSubview(fps)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
