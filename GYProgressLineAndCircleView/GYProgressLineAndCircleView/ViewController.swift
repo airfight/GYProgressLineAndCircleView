@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         subView.lineMaxHeight = 4
         subView.pointMaxRadius = 6
         subView.textPosition = ProgressLevelTextPosition.None
-//        subView.currentLevel = 0
+        subView.currentLevel = 0
         
         view.addSubview(subView)
         
