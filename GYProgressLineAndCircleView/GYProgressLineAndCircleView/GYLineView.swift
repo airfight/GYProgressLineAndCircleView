@@ -94,7 +94,7 @@ class GYLineView: UIView {
     private func initSubView(flag: Bool) {
         
         guard progressLevelArray.count != 0 else {
-            
+            assert(false, "You must give array assignment!")
             return
         }
         

@@ -38,12 +38,14 @@ class ViewController: UIViewController {
       
         */
         
+        
+        // 带进度标题的直线
         subView = GYLineView()
         subView.frame = CGRect(x: 10, y: 50, width: 300, height: 100)
         subView.progressLevelArray = ["1","2","3","4","5","6"];
         subView.lineMaxHeight = 4
         subView.pointMaxRadius = 6
-        subView.textPosition = ProgressLevelTextPosition.Bootom
+        subView.textPosition = ProgressLevelTextPosition.None
 //        subView.currentLevel = 0
         
         view.addSubview(subView)
