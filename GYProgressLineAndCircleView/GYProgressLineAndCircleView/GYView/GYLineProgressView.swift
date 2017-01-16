@@ -328,6 +328,14 @@ class GYLineProgressView: UIView {
         
     }
     
+    fileprivate func radiusForCircle() -> CGFloat {
+        
+        if ((delegate?.radiusForCircleViewInProgressView?(progressView: self)) != nil) {
+            return (delegate?.radiusForCircleViewInProgressView!(progressView: self))!
+        }
+        return CGFloat(DefaultRadius)
+    }
+    
     fileprivate func labelWithTitle(_ title: String?) -> UILabel {
         
         let fontOfTitle = fontForTitle()
@@ -343,15 +351,71 @@ class GYLineProgressView: UIView {
         
     }
     
-    
+    fileprivate func circleViewWithView(_ view: UIView) {
+        
+        let colorOfCircle = circleNormalColor()
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = view.frame.width / 2.0
+        view.backgroundColor = colorOfCircle
+        
+    }
+
     
     //MARK: - OVerride
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let numberOfProgress = dataSource?.numberOfProgressInProgressView()
+        if  numberOfProgress == 0 {
+            return
+        }
+        
+        let marginLeft:CGFloat = 15.0
+        let marginRight:CGFloat = 15.0
+        let marginTop:CGFloat = 18.0
+        let marginRow:CGFloat = 12.0
+        
+        let radiusOfCircle = radiusForCircle()
+        let lineHeight = 2
+        let lineWidth = ((self.frame.width - CGFloat(numberOfProgress!) * radiusOfCircle - marginLeft - marginRight) / (CGFloat(numberOfProgress!) - 1.0)) + 0.1
+        
+        let circleViewX = marginLeft
+        
+        for i in 0..<Int(numberOfProgress!) {
+            
+            let circleView = circles?[i] as! UIView
+            
+            circleView.frame = CGRect(x: circleViewX, y: marginTop, width: radiusOfCircle, height: radiusOfCircle)
+            circleViewWithView(circleView)
+            
+            let label = titles?[i] as! UILabel
+            
+            if i == 0 {
+                label.frame = CGRect(x: circleViewX, y: circleView.frame.maxY + marginRow, width: 0, height: 0)
+                label.sizeToFit()
+            } else if (i != numberOfProgress - 1) {
+                label.sizeToFit()
+                label.center = CGPoint(x: circleView.center.x, y: 0)
+                label.frame = CGRect(x: label.frame.minX, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
+            }
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+    }
     
     
     override func willRemoveSubview(_ subview: UIView) {
         subview.willMove(toSuperview: subview)
         
-        
+        reloadData()
     }
     
 
