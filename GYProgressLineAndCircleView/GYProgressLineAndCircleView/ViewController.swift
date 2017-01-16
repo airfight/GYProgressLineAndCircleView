@@ -43,7 +43,8 @@ class ViewController: UIViewController {
         subView.progressLevelArray = ["1","2","3","4","5","6"];
         subView.lineMaxHeight = 4
         subView.pointMaxRadius = 6
-        subView.currentLevel = 0
+        subView.textPosition = ProgressLevelTextPosition.Bootom
+//        subView.currentLevel = 0
         
         view.addSubview(subView)
         

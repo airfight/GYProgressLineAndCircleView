@@ -19,20 +19,26 @@ import UIKit
 fileprivate let PROGRESS_PADDING: CGFloat = 8
 fileprivate let PROGRESS_TIPLABEL_HEIGHT: CGFloat = 30
 
+
+public enum ProgressLevelTextPosition {
+    case Top
+    case Bootom
+    case None
+}
+
+
 class GYLineView: UIView {
 
-    private enum ProgressLevelTextPosition {
-        case Top
-        case Bootom
-        case None
-    }
-    
     var progressLevelArray = Array<String>()
     var pointMaxRadius:CGFloat?
     var lineMaxHeight: CGFloat?
     var currentLevel: Int?
     var animationDuration: CFTimeInterval?
+    var textPosition: ProgressLevelTextPosition?
+    
+    /// 未完成进度颜色
     var unachievedColor: UIColor?
+    /// 已完成进度颜色
     var achievedColor: UIColor?
     
     private var aboveView: UIView!
@@ -88,14 +94,32 @@ class GYLineView: UIView {
     private func initSubView(flag: Bool) {
         
         guard progressLevelArray.count != 0 else {
+            
             return
         }
         
         let height = self.frame.height - 2 * PROGRESS_PADDING
         
+        if lineMaxHeight == nil {
+            assert(false, "lineMaxHeight can't be nil")
+        }
+        
+        if pointMaxRadius == nil {
+            assert(false, "pointMaxRadius can't be nil")
+        }
+        
+//        if <#condition#> {
+//            <#code#>
+//        }
+        
         let pointRadius = height > (pointMaxRadius ?? 0) ? pointMaxRadius : height / 2.0
         
         let lineHeight = height > (lineMaxHeight ?? 0) ? lineMaxHeight : height
+//        guard <#condition#> else {
+//            <#statements#>
+//        }
+//        assert(false, "pointRadius can't be nil")
+//        assert(false, " can't be nil")
         
         let unitLineWidth = (self.frame.width - 2 * PROGRESS_PADDING - 2 * pointRadius!) / CGFloat(self.progressLevelArray.count - 1)
         
@@ -105,11 +129,25 @@ class GYLineView: UIView {
             
             let pointRect = CGRect(x: PROGRESS_PADDING + CGFloat(i)  * unitLineWidth , y: self.frame.size.height / 2.0 - pointRadius!, width: 2 * pointRadius!, height: 2 * pointRadius!)
             
-            let labelOriginY = self.frame.size.height / 2.0 - PROGRESS_PADDING - PROGRESS_TIPLABEL_HEIGHT - pointRadius!;
+            var labelOriginY = self.frame.size.height / 2.0 - PROGRESS_PADDING - PROGRESS_TIPLABEL_HEIGHT - pointRadius!;
+            
+            if self.textPosition == .Bootom {
+                
+                labelOriginY = self.frame.height / 2.0 + PROGRESS_PADDING + pointRadius!
+                
+            }
+            
+//            if self.textPosition == ProgressLevelTextPosition.None {
+//                labelOriginY = 0
+//            }
             
             let labelRect = CGRect(x: pointRect.minX + pointRadius! - unitLineWidth/2.0, y: labelOriginY, width: unitLineWidth, height: PROGRESS_TIPLABEL_HEIGHT)
             
             if i != self.progressLevelArray.count - 1 {
+                
+                if (self.currentLevel == nil) {
+                    self.currentLevel = 0
+                }
                 
                 if i < self.currentLevel! {
                     
@@ -124,12 +162,21 @@ class GYLineView: UIView {
             if  i <= self.currentLevel! {
                 
                 generatePointWithFrame(pointRect, achievedFlag: true, aboveFlag: flag)
-                generateTipLabelWithFrame(labelRect, achievedFlag: true, text: self.progressLevelArray[i], aboveFlag: flag)
+                
+                if self.textPosition == ProgressLevelTextPosition.None {
+            
+                } else {
+                    generateTipLabelWithFrame(labelRect, achievedFlag: true, text: self.progressLevelArray[i], aboveFlag: flag)
+                }
 
             } else {
-             
+
                 generatePointWithFrame(pointRect, achievedFlag: false, aboveFlag: flag)
-                generateTipLabelWithFrame(labelRect, achievedFlag: false, text: self.progressLevelArray[i], aboveFlag: flag)
+                if self.textPosition == ProgressLevelTextPosition.None {
+                } else {
+                    generateTipLabelWithFrame(labelRect, achievedFlag: false, text: self.progressLevelArray[i], aboveFlag: flag)
+                }
+          
             }
 
         }
@@ -176,7 +223,6 @@ class GYLineView: UIView {
     
     fileprivate func generateTipLabelWithFrame(_ frame:CGRect,achievedFlag: Bool,text: String,aboveFlag: Bool)
     {
-        
         let tipLb = UILabel(frame: frame)
         tipLb.backgroundColor = UIColor.clear
         tipLb.text = text
