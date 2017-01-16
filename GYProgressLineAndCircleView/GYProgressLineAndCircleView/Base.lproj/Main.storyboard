@@ -20,7 +20,20 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="00X-Oq-5YQ">
+                                <rect key="frame" x="179" y="290" width="46" height="30"/>
+                                <state key="normal" title="旋转吧"/>
+                                <connections>
+                                    <action selector="chageValue:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AWG-zp-ZPV"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="00X-Oq-5YQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-28.5" id="1w1-Aa-00A"/>
+                            <constraint firstItem="00X-Oq-5YQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="14.5" id="Xn1-oL-Cf4"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xfH-i3-rle"/>
                 </viewController>

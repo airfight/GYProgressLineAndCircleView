@@ -63,6 +63,14 @@ class GYLineView: UIView {
         }
         
         initSubView(flag: false)
+        aboveView = UIView(frame: self.bounds)
+        aboveView.backgroundColor = UIColor.clear
+        maskLayer.frame = aboveView.bounds
+        self.addSubview(aboveView)
+        
+        initSubView(flag: true)
+        bringSubview(toFront: aboveView)
+        configMask()
         
     }
     
@@ -97,7 +105,7 @@ class GYLineView: UIView {
             
             let pointRect = CGRect(x: PROGRESS_PADDING + CGFloat(i)  * unitLineWidth , y: self.frame.size.height / 2.0 - pointRadius!, width: 2 * pointRadius!, height: 2 * pointRadius!)
             
-            var labelOriginY = self.frame.size.height / 2.0 - PROGRESS_PADDING - PROGRESS_TIPLABEL_HEIGHT - pointRadius!;
+            let labelOriginY = self.frame.size.height / 2.0 - PROGRESS_PADDING - PROGRESS_TIPLABEL_HEIGHT - pointRadius!;
             
             let labelRect = CGRect(x: pointRect.minX + pointRadius! - unitLineWidth/2.0, y: labelOriginY, width: unitLineWidth, height: PROGRESS_TIPLABEL_HEIGHT)
             
@@ -105,16 +113,23 @@ class GYLineView: UIView {
                 
                 if i < self.currentLevel! {
                     
-                } else {
+                    generateUnitLineWithFrame(unitLineRect, achievedFlag: true, aboveFlag: flag)
                     
+                } else {
+                     generateUnitLineWithFrame(unitLineRect, achievedFlag: false, aboveFlag: flag)
                 }
                 
             }
             
             if  i <= self.currentLevel! {
                 
+                generatePointWithFrame(pointRect, achievedFlag: true, aboveFlag: flag)
+                generateTipLabelWithFrame(labelRect, achievedFlag: true, text: self.progressLevelArray[i], aboveFlag: flag)
+
             } else {
-                
+             
+                generatePointWithFrame(pointRect, achievedFlag: false, aboveFlag: flag)
+                generateTipLabelWithFrame(labelRect, achievedFlag: false, text: self.progressLevelArray[i], aboveFlag: flag)
             }
 
         }
@@ -122,6 +137,95 @@ class GYLineView: UIView {
         
     }
     
+    fileprivate func generatePointWithFrame(_ frame: CGRect,achievedFlag: Bool,aboveFlag: Bool)
+    {
+        let pointView = UIView(frame: frame)
+        
+        if achievedFlag && aboveFlag {
+            pointView.backgroundColor = (self.achievedColor != nil) ? self.achievedColor! : UIColor.orange
+        } else {
+            pointView.backgroundColor = (self.unachievedColor != nil) ? self.unachievedColor! : UIColor.lightGray
+        }
+        pointView.layer.cornerRadius = frame.size.width/2.0
+        
+        if aboveFlag {
+            aboveView.addSubview(pointView)
+        } else {
+            self.addSubview(pointView)
+        }
+        
+    }
+    
+    fileprivate func generateUnitLineWithFrame(_ frame: CGRect,achievedFlag: Bool,aboveFlag: Bool)
+    {
+        let lineView = UIView(frame: frame)
+        
+        if achievedFlag && aboveFlag {
+            lineView.backgroundColor = (self.achievedColor != nil) ? self.achievedColor! : UIColor.orange
+        } else {
+            lineView.backgroundColor = (self.unachievedColor != nil) ? self.unachievedColor! : UIColor.lightGray
+        }
+        
+        if aboveFlag {
+            aboveView.addSubview(lineView)
+        } else {
+            self.addSubview(lineView)
+        }
+        
+    }
+    
+    fileprivate func generateTipLabelWithFrame(_ frame:CGRect,achievedFlag: Bool,text: String,aboveFlag: Bool)
+    {
+        
+        let tipLb = UILabel(frame: frame)
+        tipLb.backgroundColor = UIColor.clear
+        tipLb.text = text
+        tipLb.adjustsFontSizeToFitWidth = true
+        tipLb.baselineAdjustment = UIBaselineAdjustment.alignCenters
+        tipLb.textAlignment = .center
+        
+        if achievedFlag && aboveFlag {
+            tipLb.textColor = (self.achievedColor != nil) ? self.achievedColor! : UIColor.orange
+        } else {
+            tipLb.textColor = (self.unachievedColor != nil) ? self.unachievedColor! : UIColor.lightGray
+        }
+        
+        if aboveFlag {
+            aboveView.addSubview(tipLb)
+        } else {
+            self.addSubview(tipLb)
+        }
+        
+    }
+    
+    fileprivate func configMask() {
+        
+        moveLayer = CAShapeLayer()
+        moveLayer.bounds = aboveView.bounds
+        moveLayer.fillColor = UIColor.black.cgColor
+        moveLayer.path = UIBezierPath(rect: aboveView.bounds).cgPath
+        moveLayer.opacity = 0.8
+        moveLayer.position = CGPoint(x: -aboveView.bounds.width / 2.0, y: aboveView.bounds.height / 2.0)
+        maskLayer.addSublayer(moveLayer)
+        
+        aboveView.layer.mask = maskLayer
+
+    }
+    
+    func startAnimation() {
+        
+        moveLayer.position = CGPoint(x: aboveView.bounds.width / 2.0, y: aboveView.bounds.height / 2.0)
+        let rightAnimation = CABasicAnimation(keyPath: "position")
+        
+        rightAnimation.fromValue = NSValue.init(cgPoint: CGPoint(x: -aboveView.bounds.width / 2.0, y: aboveView.bounds.height / 2.0))
+        rightAnimation.toValue = NSValue.init(cgPoint: CGPoint(x: aboveView.bounds.width / 2.0, y: aboveView.bounds.height / 2.0))
+        rightAnimation.duration = (self.animationDuration != nil) ? self.animationDuration! : 5.0
+        rightAnimation.repeatCount = 0
+        rightAnimation.isRemovedOnCompletion = false
+        moveLayer.add(rightAnimation, forKey: "rightAnimation")
+        
+        
+    }
     
     
     
