@@ -57,7 +57,6 @@ class GYLineView: UIView {
         super.awakeFromNib()
         initUI()
         
-        
     }
     
     
@@ -108,18 +107,10 @@ class GYLineView: UIView {
             assert(false, "pointMaxRadius can't be nil")
         }
         
-//        if <#condition#> {
-//            <#code#>
-//        }
         
         let pointRadius = height > (pointMaxRadius ?? 0) ? pointMaxRadius : height / 2.0
         
         let lineHeight = height > (lineMaxHeight ?? 0) ? lineMaxHeight : height
-//        guard <#condition#> else {
-//            <#statements#>
-//        }
-//        assert(false, "pointRadius can't be nil")
-//        assert(false, " can't be nil")
         
         let unitLineWidth = (self.frame.width - 2 * PROGRESS_PADDING - 2 * pointRadius!) / CGFloat(self.progressLevelArray.count - 1)
         

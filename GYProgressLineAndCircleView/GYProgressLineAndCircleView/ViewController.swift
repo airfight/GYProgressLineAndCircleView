@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         
         self.navigationController?.view.addSubview(fps)
         
+        view.backgroundColor = UIColor.init(hex: "0xFFEC8B")
         /*
         
         arrTitls = ["1","2","3","4"]
@@ -38,7 +39,7 @@ class ViewController: UIViewController {
       
         */
         
-        
+        /*
         // 带进度标题的直线
         subView = GYLineView()
         subView.frame = CGRect(x: 10, y: 50, width: 300, height: 100)
@@ -49,8 +50,18 @@ class ViewController: UIViewController {
         subView.currentLevel = 0
         
         view.addSubview(subView)
-        
 //        subView.startAnimation()
+        */
+        
+        
+        //渐变进度条
+        let progrssView = GYLineColorGradientView(frame: CGRect(x: 20.0, y: 100, width: 320 - 40, height: 45))
+        
+        progrssView.percent = 100
+        
+        self.view.addSubview(progrssView)
+        
+
         
     }
 
@@ -64,7 +75,7 @@ class ViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        subView.startAnimation()
+//        subView.startAnimation()
     }
     
     override func didReceiveMemoryWarning() {

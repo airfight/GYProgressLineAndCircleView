@@ -18,6 +18,8 @@
 		B75DE61E1E28B5F3000B6173 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DE61B1E28B5F3000B6173 /* YYFPSLabel.m */; };
 		B75DE61F1E28B5F3000B6173 /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = B75DE61D1E28B5F3000B6173 /* YYWeakProxy.m */; };
 		B75DE6211E28D336000B6173 /* GYLineProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75DE6201E28D336000B6173 /* GYLineProgressView.swift */; };
+		B7950C6B1E2CD81C009E1729 /* GYLineColorGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7950C6A1E2CD81C009E1729 /* GYLineColorGradientView.swift */; };
+		B7950C6D1E2CDBB4009E1729 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7950C6C1E2CDBB4009E1729 /* UIColor+Hex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		B75DE61C1E28B5F3000B6173 /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
 		B75DE61D1E28B5F3000B6173 /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
 		B75DE6201E28D336000B6173 /* GYLineProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYLineProgressView.swift; sourceTree = "<group>"; };
+		B7950C6A1E2CD81C009E1729 /* GYLineColorGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYLineColorGradientView.swift; sourceTree = "<group>"; };
+		B7950C6C1E2CDBB4009E1729 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,8 @@
 			children = (
 				B75DE6151E28B3A5000B6173 /* GYLineView.swift */,
 				B75DE6201E28D336000B6173 /* GYLineProgressView.swift */,
+				B7950C6A1E2CD81C009E1729 /* GYLineColorGradientView.swift */,
+				B7950C6C1E2CDBB4009E1729 /* UIColor+Hex.swift */,
 			);
 			path = GYView;
 			sourceTree = "<group>";
@@ -298,9 +304,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B75DE5EA1E28B311000B6173 /* ViewController.swift in Sources */,
+				B7950C6D1E2CDBB4009E1729 /* UIColor+Hex.swift in Sources */,
 				B75DE6161E28B3A5000B6173 /* GYLineView.swift in Sources */,
 				B75DE61E1E28B5F3000B6173 /* YYFPSLabel.m in Sources */,
 				B75DE5E81E28B311000B6173 /* AppDelegate.swift in Sources */,
+				B7950C6B1E2CD81C009E1729 /* GYLineColorGradientView.swift in Sources */,
 				B75DE61F1E28B5F3000B6173 /* YYWeakProxy.m in Sources */,
 				B75DE6211E28D336000B6173 /* GYLineProgressView.swift in Sources */,
 			);
@@ -455,7 +463,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = UZZG6NM74T;
 				INFOPLIST_FILE = GYProgressLineAndCircleView/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Ozner.GYProgressLineAndCircleView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -472,7 +480,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = UZZG6NM74T;
 				INFOPLIST_FILE = GYProgressLineAndCircleView/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Ozner.GYProgressLineAndCircleView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -558,6 +566,7 @@
 				B75DE60E1E28B311000B6173 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B75DE60F1E28B311000B6173 /* Build configuration list for PBXNativeTarget "GYProgressLineAndCircleViewTests" */ = {
 			isa = XCConfigurationList;
@@ -566,6 +575,7 @@
 				B75DE6111E28B311000B6173 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B75DE6121E28B311000B6173 /* Build configuration list for PBXNativeTarget "GYProgressLineAndCircleViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -574,6 +584,7 @@
 				B75DE6141E28B311000B6173 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
