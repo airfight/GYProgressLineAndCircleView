@@ -15,7 +15,7 @@
 
 import UIKit
 
-protocol GYLineProgressViewDataSource {
+protocol GYLineProgressViewDataSource: NSObjectProtocol {
     
     
     /// 进度条数目
@@ -91,24 +91,268 @@ protocol GYLineProgressViewDataSource {
     
 }
 
+fileprivate let DefaultRadius = 10
+
+fileprivate let DefaultFont = UIFont.systemFont(ofSize: 12.0)
+
+fileprivate let DefaultBoldFont = UIFont.systemFont(ofSize: 12.0)
+
+fileprivate let DefaultCircleColor = UIColor.lightGray
+
+fileprivate let DefaultTitleColor = UIColor.lightGray
+
+fileprivate let DefaultHighCircleColor = UIColor.red
+
+fileprivate let DefaultHighTitleColor = UIColor.red
 
 class GYLineProgressView: UIView {
     
-    weak var dataSource: GYLineProgressViewDelegate!
-    weak var delegate: GYLineProgressViewDelegate!
+    weak var dataSource: GYLineProgressViewDataSource?
+    weak var delegate: GYLineProgressViewDelegate?
     
     
     /// 未完成阶段
     var items: Array<Int>?
+    {
+        set {
+            self.items = newValue
+            for obj in items! {
+                
+                let number = obj - 1
+                let label = self.titles?[number] as! UILabel
+                label.textColor = titleNormalColor()
+                
+                let circleView = self.circles?[number] as! UIView
+                circleView.backgroundColor = circleNormalColor()
+                
+            }
+            
+        }
+        
+        get {
+            return self.items
+        }
+    }
     
     
     /// 当前进度
     var currentProgress: Int?
+    {
+        set {
+            let numberOfProgress = self.dataSource?.numberOfProgressInProgressView()
+            
+            self.currentProgress = newValue
+            if currentProgress! > numberOfProgress! {
+                assert(true, "当前进度超出总进度")
+                return
+            }
+            
+            statusViewForCurrentProgress(currentProgress!)
+            
+            if (items != nil) && (items?.count)! > 0 {
+                _ = self.items
+            }
+            
+        }
+        
+        get {
+            return self.currentProgress
+        }
+        
+    }
+    
+    private var circles: Array<Any>?
+    
+    private var lines: Array<Any>?
+    
+    private var titles: Array<Any>?
+    
+    func reloadData() {
+        
+        self.circles?.forEach({ (view: UIView) in
+            view.removeFromSuperview()
+        } as! (Any) -> Void)
+        self.circles?.removeAll()
+        
+        self.lines?.forEach({ (view: UIView) in
+            view.removeFromSuperview()
+        } as! (Any) -> Void)
+        self.lines?.removeAll()
+        
+        self.titles?.forEach({ (view: UIView) in
+            view.removeFromSuperview()
+        } as! (Any) -> Void)
+        self.titles?.removeAll()
+        
+        let numberOfProgress = dataSource?.numberOfProgressInProgressView()
+        
+        if numberOfProgress == 0 {
+            return;
+        }
+        
+        for i in 0..<Int(numberOfProgress!) {
+            let title = dataSource?.progressView(progressView: self, titleAtIndex: i)
+            let label = labelWithTitle(title)
+            
+            titles?.append(label)
+            self.addSubview(label)
+            
+            let circleView = UIView()
+            self.circles?.append(circleView)
+            self.addSubview(circleView)
+            
+            if i != 0 {
+                let lineView = UIView()
+                self.lines?.append(lineView)
+                self.addSubview(lineView)
+                
+            }
+            
+        }
+        
+    }
     
     
+    fileprivate func statusViewForCurrentProgress(_ progress: Int) {
+        
+        let numberOfProgress = self.dataSource?.numberOfProgressInProgressView()
+        
+        let colorOfTItle = titleNormalColor()
+        let colorOfCircle = circleNormalColor()
+        
+        for i in 0..<Int(numberOfProgress!) {
+            
+            let label = titles?[i] as! UILabel
+            label.textColor = colorOfTItle
+            label.font = fontForTitle()
+            
+            let circleView = circles?[i] as! UIView
+            
+            circleView.backgroundColor = colorOfCircle
+            
+            if i != 0 {
+                let lineView = lines?[i - 1] as! UIView
+                lineView.backgroundColor = colorOfCircle
+                
+            }
+            
+        }
+        
+        
+        for i in 0..<currentProgress! {
+            
+            let label = titles?[i] as! UILabel
+            label.textColor = titleHighColor()
+            
+            let circleView = circles?[i] as! UIView
+            circleView.backgroundColor = circleHighColor()
+            
+            if i != 0 {
+                let lineView = lines?[i - 1] as! UIView
+                
+                lineView.backgroundColor = circleHighColor()
+                
+            }
+            
+            if i == currentProgress! - 1 {
+                
+                label.textColor = titleHighColor()
+                label.font = bodyFontForTitle()
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    fileprivate func titleNormalColor() -> UIColor? {
+        
+        if ((delegate?.colorForTitleViewInProgressView?(progressView: self)) != nil) {
+            
+            return delegate?.colorForTitleViewInProgressView!(progressView: self)
+            
+        }
+        
+        return DefaultTitleColor
+    }
 
-
+    fileprivate func circleNormalColor() -> UIColor?{
+        
+        if ((delegate?.colorForCircleViewInProgressView?(progressView: self)) != nil) {
+            
+            return delegate?.colorForCircleViewInProgressView!(progressView: self)
+            
+        }
+        
+        return DefaultCircleColor
+        
+    }
     
+    fileprivate func fontForTitle() -> UIFont? {
+        
+        if ((self.delegate?.fontForTitleViewInProgressView?(progressView: self)) != nil){
+            return delegate?.fontForTitleViewInProgressView!(progressView: self)
+        }
+        
+        return DefaultFont
+        
+    }
+    
+    fileprivate func titleHighColor() -> UIColor? {
+        
+        if ((delegate?.highlightColorForTitleViewInProgressView?(progressView: self)) != nil) {
+            
+            return delegate?.highlightColorForTitleViewInProgressView!(progressView: self)
+        }
+        return DefaultHighTitleColor
+    }
+    
+    fileprivate func circleHighColor() -> UIColor? {
+        
+        if ((delegate?.highlightColorForCircleViewInProgressView?(progressView: self)) != nil) {
+            return delegate?.highlightColorForCircleViewInProgressView!(progressView: self)
+        }
+        
+        return DefaultHighCircleColor
+        
+    }
+    
+    fileprivate func bodyFontForTitle() -> UIFont? {
+     
+        if delegate?.boldFontForTitleViewInProgressView?(progressView: self) != nil {
+            return delegate?.boldFontForTitleViewInProgressView!(progressView: self)
+        }
+        
+        return DefaultBoldFont
+        
+    }
+    
+    fileprivate func labelWithTitle(_ title: String?) -> UILabel {
+        
+        let fontOfTitle = fontForTitle()
+        let colorOfitle = titleNormalColor()
+        
+        let label = UILabel()
+        label.text = title
+        label.textAlignment = .center
+        label.textColor = colorOfitle
+        label.font = fontOfTitle
+        
+        return label
+        
+    }
+    
+    
+    
+    //MARK: - OVerride
+    
+    
+    override func willRemoveSubview(_ subview: UIView) {
+        subview.willMove(toSuperview: subview)
+        
+        
+    }
     
 
 }
