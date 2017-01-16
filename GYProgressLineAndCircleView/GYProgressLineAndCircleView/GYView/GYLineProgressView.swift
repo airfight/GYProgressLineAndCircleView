@@ -97,9 +97,9 @@ fileprivate let DefaultFont = UIFont.systemFont(ofSize: 12.0)
 
 fileprivate let DefaultBoldFont = UIFont.systemFont(ofSize: 12.0)
 
-fileprivate let DefaultCircleColor = UIColor.lightGray
+fileprivate let DefaultCircleColor = UIColor.blue
 
-fileprivate let DefaultTitleColor = UIColor.lightGray
+fileprivate let DefaultTitleColor = UIColor.blue
 
 fileprivate let DefaultHighCircleColor = UIColor.red
 
@@ -110,13 +110,13 @@ class GYLineProgressView: UIView {
     weak var dataSource: GYLineProgressViewDataSource?
     weak var delegate: GYLineProgressViewDelegate?
     
-    
+    var _items: Array<Int>?
     /// 未完成阶段
     var items: Array<Int>?
     {
         set {
-            self.items = newValue
-            for obj in items! {
+            _items = newValue
+            for obj in _items! {
                 
                 let number = obj - 1
                 let label = self.titles?[number] as! UILabel
@@ -130,27 +130,27 @@ class GYLineProgressView: UIView {
         }
         
         get {
-            return self.items
+            return _items
         }
     }
     
-    
+    var _currentProgress: Int?
     /// 当前进度
     var currentProgress: Int?
     {
         set {
             let numberOfProgress = self.dataSource?.numberOfProgressInProgressView()
             
-            self.currentProgress = newValue
-            if currentProgress! > numberOfProgress! {
-                assert(true, "当前进度超出总进度")
+            _currentProgress = newValue
+            if _currentProgress! > numberOfProgress! {
+                assert(false, "当前进度超出总进度")
                 return
             }
             
-            statusViewForCurrentProgress(currentProgress!)
+            statusViewForCurrentProgress(_currentProgress!)
             
-            if (items != nil) && (items?.count)! > 0 {
-                _ = self.items
+            if (_items != nil) && (_items?.count)! > 0 {
+                _ = self._items
             }
             
         }
@@ -161,11 +161,11 @@ class GYLineProgressView: UIView {
         
     }
     
-    private var circles: Array<Any>?
+    private var circles: Array<Any>? = nil
     
-    private var lines: Array<Any>?
+    private var lines: Array<Any>? = nil
     
-    private var titles: Array<Any>?
+    private var titles: Array<Any>? = nil
     
     func reloadData() {
         
@@ -222,6 +222,18 @@ class GYLineProgressView: UIView {
         
         for i in 0..<Int(numberOfProgress!) {
             
+            guard titles != nil else {
+                return
+            }
+            
+            guard circles != nil else {
+                return
+            }
+            
+            guard lines != nil else {
+                return
+            }
+            
             let label = titles?[i] as! UILabel
             label.textColor = colorOfTItle
             label.font = fontForTitle()
@@ -239,7 +251,7 @@ class GYLineProgressView: UIView {
         }
         
         
-        for i in 0..<currentProgress! {
+        for i in 0..<progress {
             
             let label = titles?[i] as! UILabel
             label.textColor = titleHighColor()
@@ -254,7 +266,7 @@ class GYLineProgressView: UIView {
                 
             }
             
-            if i == currentProgress! - 1 {
+            if i == progress - 1 {
                 
                 label.textColor = titleHighColor()
                 label.font = bodyFontForTitle()
@@ -346,7 +358,7 @@ class GYLineProgressView: UIView {
         label.textAlignment = .center
         label.textColor = colorOfitle
         label.font = fontOfTitle
-        
+        label.backgroundColor = UIColor.blue
         return label
         
     }
@@ -377,12 +389,24 @@ class GYLineProgressView: UIView {
         let marginRow:CGFloat = 12.0
         
         let radiusOfCircle = radiusForCircle()
-        let lineHeight = 2
-        let lineWidth = ((self.frame.width - CGFloat(numberOfProgress!) * radiusOfCircle - marginLeft - marginRight) / (CGFloat(numberOfProgress!) - 1.0)) + 0.1
+        let lineHeight:CGFloat = 2
+        let lineWidth:CGFloat = ((self.frame.width - CGFloat(numberOfProgress!) * radiusOfCircle - marginLeft - marginRight) / (CGFloat(numberOfProgress!) - 1.0)) + 0.1
         
-        let circleViewX = marginLeft
+        var circleViewX = marginLeft
         
         for i in 0..<Int(numberOfProgress!) {
+            
+            guard titles != nil else {
+                return
+            }
+            
+            guard circles != nil else {
+                return
+            }
+            
+            guard lines != nil else {
+                return
+            }
             
             let circleView = circles?[i] as! UIView
             
@@ -394,17 +418,31 @@ class GYLineProgressView: UIView {
             if i == 0 {
                 label.frame = CGRect(x: circleViewX, y: circleView.frame.maxY + marginRow, width: 0, height: 0)
                 label.sizeToFit()
-            } else if (i != numberOfProgress - 1) {
+            } else if (i != numberOfProgress! - 1) {
                 label.sizeToFit()
                 label.center = CGPoint(x: circleView.center.x, y: 0)
-                label.frame = CGRect(x: label.frame.minX, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
+                label.frame = CGRect(x: label.frame.minX, y: circleView.frame.maxY + marginRow, width: label.frame.width, height: label.frame.height)
+            } else {
+                label.sizeToFit()
+                label.frame = CGRect(x: circleView.frame.maxX - label.frame.width, y: circleView.frame.maxY + marginRow, width: label.frame.width, height: label.frame.height)
             }
             
-            
+            if i != 0 {
+                let lineView = lines?[i - 1] as! UIView
+                let circle = circles?[i - 1] as! UIView
+                
+                lineView.frame = CGRect(x: circle.frame.maxX, y: 0.0, width: lineWidth, height: lineHeight)
+                lineView.center = CGPoint(x: lineView.center.x, y: circleView.center.y)
+                lineView.backgroundColor = circleNormalColor()
+                
+            }
+            circleViewX += lineWidth + circleView.frame.width
             
         }
         
-        
+        if (self._currentProgress != nil) {
+             _ = self._currentProgress
+        }
         
         
         
