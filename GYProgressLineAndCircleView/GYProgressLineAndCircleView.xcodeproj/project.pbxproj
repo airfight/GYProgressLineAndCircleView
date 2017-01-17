@@ -20,6 +20,8 @@
 		B75DE6211E28D336000B6173 /* GYLineProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75DE6201E28D336000B6173 /* GYLineProgressView.swift */; };
 		B7950C6B1E2CD81C009E1729 /* GYLineColorGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7950C6A1E2CD81C009E1729 /* GYLineColorGradientView.swift */; };
 		B7950C6D1E2CDBB4009E1729 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7950C6C1E2CDBB4009E1729 /* UIColor+Hex.swift */; };
+		B7950C711E2DB78E009E1729 /* Extension+WHC_Debuger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7950C6F1E2DB78E009E1729 /* Extension+WHC_Debuger.swift */; };
+		B7950C721E2DB78E009E1729 /* WHC_Debuger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7950C701E2DB78E009E1729 /* WHC_Debuger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		B75DE6201E28D336000B6173 /* GYLineProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYLineProgressView.swift; sourceTree = "<group>"; };
 		B7950C6A1E2CD81C009E1729 /* GYLineColorGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYLineColorGradientView.swift; sourceTree = "<group>"; };
 		B7950C6C1E2CDBB4009E1729 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		B7950C6F1E2DB78E009E1729 /* Extension+WHC_Debuger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+WHC_Debuger.swift"; sourceTree = "<group>"; };
+		B7950C701E2DB78E009E1729 /* WHC_Debuger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WHC_Debuger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,7 @@
 		B75DE5E61E28B311000B6173 /* GYProgressLineAndCircleView */ = {
 			isa = PBXGroup;
 			children = (
+				B7950C6E1E2DB78E009E1729 /* WHC_Debuger */,
 				B75DE6171E28B5EA000B6173 /* GYView */,
 				B75DE6181E28B5EA000B6173 /* YYFPSLabel */,
 				B75DE5E71E28B311000B6173 /* AppDelegate.swift */,
@@ -163,6 +168,15 @@
 				B75DE6191E28B5F2000B6173 /* GYProgressLineAndCircleView-Bridging-Header.h */,
 			);
 			path = YYFPSLabel;
+			sourceTree = "<group>";
+		};
+		B7950C6E1E2DB78E009E1729 /* WHC_Debuger */ = {
+			isa = PBXGroup;
+			children = (
+				B7950C6F1E2DB78E009E1729 /* Extension+WHC_Debuger.swift */,
+				B7950C701E2DB78E009E1729 /* WHC_Debuger.swift */,
+			);
+			path = WHC_Debuger;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,7 +320,9 @@
 				B75DE5EA1E28B311000B6173 /* ViewController.swift in Sources */,
 				B7950C6D1E2CDBB4009E1729 /* UIColor+Hex.swift in Sources */,
 				B75DE6161E28B3A5000B6173 /* GYLineView.swift in Sources */,
+				B7950C711E2DB78E009E1729 /* Extension+WHC_Debuger.swift in Sources */,
 				B75DE61E1E28B5F3000B6173 /* YYFPSLabel.m in Sources */,
+				B7950C721E2DB78E009E1729 /* WHC_Debuger.swift in Sources */,
 				B75DE5E81E28B311000B6173 /* AppDelegate.swift in Sources */,
 				B7950C6B1E2CD81C009E1729 /* GYLineColorGradientView.swift in Sources */,
 				B75DE61F1E28B5F3000B6173 /* YYWeakProxy.m in Sources */,
