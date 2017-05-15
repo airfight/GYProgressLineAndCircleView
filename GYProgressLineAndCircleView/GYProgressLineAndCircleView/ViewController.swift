@@ -48,10 +48,10 @@ class ViewController: UIViewController {
         subView.pointMaxRadius = 6
         
         subView.textPosition = ProgressLevelTextPosition.Top
-        subView.currentLevel = 7
         
         view.addSubview(subView)
-        
+//        subView.currentLevel = 2
+
 //        subView.startAnimation()
         
         
@@ -71,13 +71,13 @@ class ViewController: UIViewController {
     @IBAction func chageValue(_ sender: Any) {
         
         subView.currentLevel = 4
-        subView.layoutSubviews()
+//        subView.layoutSubviews()
         subView.startAnimation()
         
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        subView.startAnimation()
+        subView.startAnimation()
     }
     
     override func didReceiveMemoryWarning() {

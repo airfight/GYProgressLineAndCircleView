@@ -175,6 +175,13 @@ class GYLineView: UIView {
         
     }
     
+    
+    /// 圆
+    ///
+    /// - Parameters:
+    ///   - frame: frame description
+    ///   - achievedFlag: achievedFlag description
+    ///   - aboveFlag: aboveFlag description
     fileprivate func generatePointWithFrame(_ frame: CGRect,achievedFlag: Bool,aboveFlag: Bool)
     {
         let pointView = UIView(frame: frame)
