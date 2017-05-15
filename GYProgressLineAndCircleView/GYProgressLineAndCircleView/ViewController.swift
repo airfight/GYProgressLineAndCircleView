@@ -20,46 +20,48 @@ class ViewController: UIViewController {
         
         self.navigationController?.view.addSubview(fps)
         
-        view.backgroundColor = UIColor.init(hex: "0xFFEC8B")
-        /*
+//        view.backgroundColor = UIColor.init(hex: "0xFFEC8B")
         
-        arrTitls = ["1","2","3","4"]
+        //此View未完善
+//        arrTitls = ["你好","2","3","4"]
+//        
+//        
+//        let progressView = GYLineProgressView()
+//        progressView.frame = CGRect(x: 0, y: 100, width: self.view.frame.width, height: 170)
+//        progressView.delegate = self
+//        progressView.dataSource = self
+////        progressView.backgroundColor = UIColor.red
+//        //
+//        view.addSubview(progressView)
+//        
+//        progressView.reloadData()
+//      
+//         progressView.currentProgress = 0
+
         
         
-        let progressView = GYLineProgressView()
-        progressView.frame = CGRect(x: 0, y: 100, width: self.view.frame.width, height: 170)
-        progressView.delegate = self
-        progressView.dataSource = self
-//        progressView.backgroundColor = UIColor.red
-        //
-        progressView.currentProgress = 2
-        view.addSubview(progressView)
-        
-        progressView.reloadData()
-      
-        */
-        
-        /*
         // 带进度标题的直线
         subView = GYLineView()
         subView.frame = CGRect(x: 10, y: 50, width: 300, height: 100)
         subView.progressLevelArray = ["1","2","3","4","5","6"];
         subView.lineMaxHeight = 4
         subView.pointMaxRadius = 6
-        subView.textPosition = ProgressLevelTextPosition.None
-        subView.currentLevel = 0
+        
+        subView.textPosition = ProgressLevelTextPosition.Top
+        subView.currentLevel = 7
         
         view.addSubview(subView)
+        
 //        subView.startAnimation()
-        */
+        
         
         
         //渐变进度条
-        let progrssView = GYLineColorGradientView(frame: CGRect(x: 20.0, y: 100, width: 320 - 40, height: 45))
-        
-        progrssView.percent = 100
-        
-        self.view.addSubview(progrssView)
+//        let progrssView = GYLineColorGradientView(frame: CGRect(x: 20.0, y: 100, width: 320 - 40, height: 45))
+//        
+//        progrssView.percent = 100
+//        
+//        self.view.addSubview(progrssView)
         
 
         
@@ -70,7 +72,7 @@ class ViewController: UIViewController {
         
         subView.currentLevel = 4
         subView.layoutSubviews()
-//        subView.startAnimation()
+        subView.startAnimation()
         
     }
     override func viewDidAppear(_ animated: Bool) {

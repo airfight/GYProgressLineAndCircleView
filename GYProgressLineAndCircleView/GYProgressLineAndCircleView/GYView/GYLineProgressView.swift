@@ -121,7 +121,7 @@ class GYLineProgressView: UIView {
                 let number = obj - 1
                 let label = self.titles?[number] as! UILabel
                 label.textColor = titleNormalColor()
-                
+
                 let circleView = self.circles?[number] as! UIView
                 circleView.backgroundColor = circleNormalColor()
                 
