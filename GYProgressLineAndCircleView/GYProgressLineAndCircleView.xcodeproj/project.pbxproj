@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		681CC0B41ECAAA0800A0935F /* GYLineBtnProgreessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681CC0B31ECAAA0800A0935F /* GYLineBtnProgreessView.swift */; };
 		B75DE5E81E28B311000B6173 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75DE5E71E28B311000B6173 /* AppDelegate.swift */; };
 		B75DE5EA1E28B311000B6173 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75DE5E91E28B311000B6173 /* ViewController.swift */; };
 		B75DE5ED1E28B311000B6173 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B75DE5EB1E28B311000B6173 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		681CC0B31ECAAA0800A0935F /* GYLineBtnProgreessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYLineBtnProgreessView.swift; sourceTree = "<group>"; };
 		B75DE5E41E28B311000B6173 /* GYProgressLineAndCircleView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GYProgressLineAndCircleView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B75DE5E71E28B311000B6173 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B75DE5E91E28B311000B6173 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				B75DE6201E28D336000B6173 /* GYLineProgressView.swift */,
 				B7950C6A1E2CD81C009E1729 /* GYLineColorGradientView.swift */,
 				B7950C6C1E2CDBB4009E1729 /* UIColor+Hex.swift */,
+				681CC0B31ECAAA0800A0935F /* GYLineBtnProgreessView.swift */,
 			);
 			path = GYView;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				B75DE61E1E28B5F3000B6173 /* YYFPSLabel.m in Sources */,
 				B7950C721E2DB78E009E1729 /* WHC_Debuger.swift in Sources */,
 				B75DE5E81E28B311000B6173 /* AppDelegate.swift in Sources */,
+				681CC0B41ECAAA0800A0935F /* GYLineBtnProgreessView.swift in Sources */,
 				B7950C6B1E2CD81C009E1729 /* GYLineColorGradientView.swift in Sources */,
 				B75DE61F1E28B5F3000B6173 /* YYWeakProxy.m in Sources */,
 				B75DE6211E28D336000B6173 /* GYLineProgressView.swift in Sources */,
